@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join The International exchange programme.</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #141414;
+            --gold: #c9a84c;
+            --gold-dim: #8b7332;
+            --text: #e0dcd5;
+            --text-dim: #9a9588;
+            --input-bg: #1c1c1c;
+            --input-border: #2e2e2e;
+            --danger: #b5343a;
+            --success: #3a7d44;
+            --white: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image:
+                radial-gradient(ellipse at 50% 30%, rgba(201, 168, 76, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 70%, rgba(201, 168, 76, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 60%, rgba(201, 168, 76, 0.04) 0%, transparent 50%);
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            perspective: 1200px;
+        }
+
+        .card-wrapper {
+            position: relative;
+            width: 100%;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #252525;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(201, 168, 76, 0.08) inset,
+                0 1px 0 rgba(255, 255, 255, 0.02) inset;
+            transition: all 0.5s ease;
+        }
+
+        .card-accent {
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-dim), var(--gold), #e0c878, var(--gold), var(--gold-dim));
+            position: relative;
+        }
+        .card-accent::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .card-body {
+            padding: 36px 32px 32px;
+        }
+
+        .club-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 10px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: var(--gold);
+            background: rgba(201, 168, 76, 0.06);
+            letter-spacing: -2px;
+        }
+        .club-name {
+            text-align: center;
+            font-size: 1.7rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .club-subtitle {
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .urgency-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(181, 52, 58, 0.12);
+            border: 1px solid rgba(181, 52, 58, 0.3);
+            border-radius: 25px;
+            padding: 8px 16px;
+            margin: 0 auto 22px;
+            width: fit-content;
+            font-size: 0.78rem;
+            color: #e88b8f;
+            letter-spacing: 1px;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(181, 52, 58, 0.3); }
+            50% { box-shadow: 0 0 0 12px rgba(181, 52, 58, 0); }
+        }
+        .urgency-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e8595c;
+            animation: blink-dot 1s step-end infinite;
+        }
+        @keyframes blink-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 13px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            transition: all 0.25s ease;
+            outline: none;
+            letter-spacing: 0.3px;
+        }
+        .form-group input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.08);
+            background: #1f1f1f;
+        }
+        .form-group input::placeholder {
+            color: #4a4a4a;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        .cc-row {
+            display: flex;
+            gap: 12px;
+        }
+        .cc-row .form-group {
+            flex: 1;
+        }
+        .cc-row .form-group:first-child {
+            flex: 2;
+        }
+
+        .security-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 18px 0 10px;
+            font-size: 0.7rem;
+            color: #5a5a5a;
+            letter-spacing: 0.5px;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+        }
+        .security-row span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lock-icon {
+            font-size: 0.75rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            margin-top: 6px;
+            background: linear-gradient(180deg, #d4b44c 0%, #b8942f 100%);
+            border: none;
+            border-radius: 8px;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-submit:hover {
+            background: linear-gradient(180deg, #e0c55a 0%, #c9a840 100%);
+            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.25);
+            transform: translateY(-1px);
+        }
+        .btn-submit:active {
+            transform: scale(0.98);
+            transition: transform 0.1s;
+        }
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .card-footer-note {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #3e3e3e;
+            margin-top: 14px;
+            letter-spacing: 0.5px;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        /* Reveal overlay */
+        .reveal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        .reveal-overlay.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .reveal-card {
+            background: #111;
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 30px 24px 24px;
+            max-width: 620px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+            animation: slideUp 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .reveal-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            animation: bounceIcon 0.6s ease;
+        }
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-25px); }
+            50% { transform: translateY(5px); }
+            70% { transform: translateY(-12px); }
+        }
+
+        .reveal-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #e8595c;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+        .reveal-subtitle {
+            font-size: 0.85rem;
+            color: #999;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        /* Video container – now using <video> */
+        .video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            background: #000;
+        }
+        .video-container video {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+        }
+
+        .warning-text {
+            background: rgba(181, 52, 58, 0.1);
+            border-left: 3px solid #e8595c;
+            padding: 14px 16px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            font-size: 0.8rem;
+            color: #d4a0a3;
+            line-height: 1.6;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            margin-bottom: 10px;
+        }
+        .warning-text strong {
+            color: #e8595c;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .tips-list {
+            text-align: left;
+            font-size: 0.75rem;
+            color: #aaa;
+            line-height: 1.7;
+            padding-left: 18px;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+        }
+        .tips-list li {
+            margin-bottom: 4px;
+        }
+        .tips-list li::marker {
+            color: #c9a84c;
+        }
+
+        .btn-close {
+            margin-top: 16px;
+            padding: 10px 28px;
+            background: transparent;
+            border: 1px solid #555;
+            border-radius: 25px;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+        }
+        .btn-close:hover {
+            border-color: #999;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        @media (max-width: 500px) {
+            .card-body {
+                padding: 24px 16px 20px;
+            }
+            .club-name {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+            .club-subtitle {
+                font-size: 0.7rem;
+                letter-spacing: 3px;
+            }
+            .cc-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .reveal-card {
+                padding: 20px 14px 16px;
+            }
+            .reveal-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== REGISTRATION CARD ==================== -->
+    <div class="container" id="registrationCard">
+        <div class="card-wrapper">
+            <div class="card">
+                <div class="card-accent"></div>
+                <div class="card-body">
+
+                    <div class="club-icon">&#9830;</div>
+                    <div class="club-name">The Exchange programme</div>
+                    <div class="club-subtitle">Student Registration</div>
+
+                    <div class="urgency-badge">
+                        <span class="urgency-dot"></span>
+                        Only <strong>&nbsp;67 spots&nbsp;</strong> remaining for this quarter's exchange!
+                    </div>
+
+                    <form id="phishForm" autocomplete="off" novalidate>
+                        <div class="form-group">
+                            <label>Full Legal Name</label>
+                            <input type="text" id="fullName" placeholder="e.g. Johnathan A. Doe" required autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="email" placeholder="you@example.com" required autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Credit Card Number <span style="color:#777;">(for identity verification)</span></label>
+                            <input type="text" id="ccNumber" placeholder="1234 5678 9012 3456" maxlength="19" required autocomplete="off" inputmode="numeric">
+                        </div>
+                        <div class="cc-row">
+                            <div class="form-group">
+                                <label>Expiry Date</label>
+                                <input type="text" id="ccExpiry" placeholder="MM / YY" maxlength="7" required autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" id="ccCvv" placeholder="•••" maxlength="4" required autocomplete="off" inputmode="numeric">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-submit">Secure Registration</button>
+                    </form>
+
+                    <div class="security-row">
+                        <span><span class="lock-icon">&#128274;</span> 256-bit SSL</span>
+                        <span>&#10003; Verified Secure</span>
+                        <span>&#9830; Member Protected</span>
+                    </div>
+                    <p class="card-footer-note">
+                        Your information is <em>totally secure</em> and will never be shared. <span style="color:#4a4a4a;">Trust us.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== REVEAL OVERLAY ==================== -->
+    <div class="reveal-overlay" id="revealOverlay">
+        <div class="reveal-card">
+            <div class="reveal-icon">🙏🏿</div>
+            <div class="reveal-title">GET WRECKED LOL</div>
+            <div class="reveal-subtitle">Ur info is mine🙏🏿🙏🏿🙏🏿</div>
+
+            <!-- Local video (auto-plays after click) -->
+            <div class="video-container">
+                <video id="rickVideo" controls playsinline>
+                    <!-- Replace with your own video file path -->
+                    <source src="rickroll.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="warning-text">
+                <strong>&#9888;&#65039; THIS WAS A SIMULATED PHISHING PAGE</strong>
+                This was an <em>educational demonstration</em>. No way you actually fall for this, right? Right??
+                You have serious skill issue and you should consider to kys.🙏🏿🙏🏿🙏🏿
+                <strong style="color:#e8595c; display:inline; font-size:0.8rem;">All of your data was saved or transmitted.(totally)</strong>
+            </div>
+
+            <ul class="tips-list">
+                <li><strong>use ur brain:</strong> did u actually fall for it?{pray emoji}</li>
+                <li><strong>patient is key in life:</strong> "Only 67 spots left!" is a classic pressure tactic.</li>
+                <li><strong>No legitimate club</strong> Qc doesnt even have ts lil bro</li>
+                <li><strong>Hover over links</strong> bro please just dont click random ass links</li>
+                <li><strong>Maybe u just type random stuff for fun lol</strong>igb </li>
+            </ul>
+
+            <button class="btn-close" onclick="closeReveal()">STFU - im not stupid </button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const form = document.getElementById('phishForm');
+            const revealOverlay = document.getElementById('revealOverlay');
+            const rickVideo = document.getElementById('rickVideo');
+            const registrationCard = document.getElementById('registrationCard');
+
+            // Format credit card number
+            const ccNumberInput = document.getElementById('ccNumber');
+            ccNumberInput.addEventListener('input', function(e) {
+                let val = this.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                if (val.length > 16) val = val.substring(0, 16);
+                const formatted = val.match(/.{1,4}/g);
+                this.value = formatted ? formatted.join(' ') : '';
+            });
+
+            // Format expiry
+            const ccExpiryInput = document.getElementById('ccExpiry');
+            ccExpiryInput.addEventListener('input', function(e) {
+                let val = this.value.replace(/[^0-9]/g, '');
+                if (val.length > 4) val = val.substring(0, 4);
+                if (val.length >= 3) {
+                    this.value = val.substring(0, 2) + ' / ' + val.substring(2);
+                } else if (val.length === 2) {
+                    this.value = val + ' / ';
+                } else {
+                    this.value = val;
+                }
+            });
+
+            // Restrict CVV
+            const ccCvvInput = document.getElementById('ccCvv');
+            ccCvvInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4);
+            });
+
+            // Form submit → show reveal and play video
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const nameVal = document.getElementById('fullName').value.trim();
+                const emailVal = document.getElementById('email').value.trim();
+                const ccVal = document.getElementById('ccNumber').value.replace(/\s+/g, '').trim();
+                const expiryVal = document.getElementById('ccExpiry').value.trim();
+                const cvvVal = document.getElementById('ccCvv').value.trim();
+
+                const hasAnyInput = nameVal || emailVal || ccVal || expiryVal || cvvVal;
+                if (!hasAnyInput) {
+                    alert('Please fill in at least the required fields to proceed with registration.');
+                    return;
+                }
+
+                // Show overlay
+                revealOverlay.classList.add('active');
+
+                // Autoplay the local video (user gesture allows this)
+                rickVideo.currentTime = 0;
+                rickVideo.play().catch(e => console.log('Video play prevented:', e));
+
+                // Transparency logging
+                console.log('%c[PHISHING SIMULATION] %cNo data was transmitted.',
+                    'color: #e8595c; font-weight: bold;', 'color: #aaa;');
+                console.log('%cThe form values were:%c', 'color: #c9a84c;', 'color: #999;');
+                console.log('  Name:     ', nameVal || '(empty)');
+                console.log('  Email:    ', emailVal || '(empty)');
+                console.log('  CC Num:   ', ccVal ? '**** **** **** ' + ccVal.slice(-4) : '(empty)');
+                console.log('  Expiry:   ', expiryVal || '(empty)');
+                console.log('  CVV:      ', cvvVal ? '***' : '(empty)');
+                console.log('%c✓ All data stayed in your browser.', 'color: #3a7d44; font-weight: bold;');
+            });
+
+            // Close overlay
+            window.closeReveal = function() {
+                // Pause and reset video
+                rickVideo.pause();
+                rickVideo.currentTime = 0;
+
+                revealOverlay.classList.remove('active');
+                registrationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                form.reset();
+            };
+
+            // Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && revealOverlay.classList.contains('active')) {
+                    closeReveal();
+                }
+            });
+
+            // Click outside the card to close
+            revealOverlay.addEventListener('click', function(e) {
+                if (e.target === revealOverlay) {
+                    closeReveal();
+                }
+            });
+
+            console.log('%c🔒 PHISHING AWARENESS DEMO %c— The Velvet Room',
+                'font-size: 1.1em; color: #c9a84c;', 'color: #888;');
+            console.log('%cThis page simulates a phishing attack for educational purposes.',
+                'color: #aaa;');
+            console.log('%cNo data is ever collected, stored, or transmitted.',
+                'color: #3a7d44;');
+        })();
+    </script>
+</body>
+</html>
